@@ -81,8 +81,8 @@ def deleteUser(username):
 
 
 #add new user and password to database
-def writeToFile(username,password):
-    a_file = open("users.txt", "a")
+def writeToFile(username,password,user_file="users.txt"):
+    a_file = open(user_file, "a")
     a_file.write(f"\n{username}:{password}")
     a_file.close()
 
@@ -143,9 +143,9 @@ def loggedInScreen(user):
 
 
 #Read information from file. Creates a list of users and passwords (NOT SO SAFE!)
-def readFromFile():
+def readFromFile(user_file="users.txt"):
     new_list = []
-    a_file = open("users.txt","r")
+    a_file = open(user_file,"r")
     for line in a_file:
         stripped_line = line.strip()
         new_list.append(stripped_line)
@@ -155,12 +155,11 @@ def readFromFile():
 
 
 #Access secret information
-def accessData():
-    a_file = open("accessFile.txt", "r")
+def accessData(hidden_file="accessFile.txt"):
+    a_file = open(hidden_file, "r")
     for line in a_file:
         print(line)
     a_file.close()
-
 
 
 
