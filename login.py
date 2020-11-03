@@ -1,10 +1,16 @@
 #Login prompt screen
-def login():
-    system = input("Are you a new user? (y/n) ")
-    if system.lower() == "y":
-        newUser()
-    elif system.lower() == "n":
-        oldUser()
+def loginScreen():
+    while True:
+        system = input("Login as excisting user (y/n) ? ")
+        if system.lower() == "n":
+            newUser()
+            break
+        elif system.lower() == "y":
+            oldUser()
+            break
+        else:
+            print("Invalid command")
+            continue
 
 #Make new user and password
 def newUser():
@@ -23,13 +29,6 @@ def newUser():
         writeToFile(username,password)        
         break
 
-#Login with excisting username and password
-def oldUser():
-    print("Login with excisting username and password:")
-    username = input("Username: ")
-    password = input("Password: ")
-    checkUser(username,password)
-
 #for now, only letters allowed (case sensitive).
 def validUsername(username):
     if username.isalpha() and len(username) > 2:
@@ -44,15 +43,39 @@ def validPassword(password):
     else:
         return False
 
-#TODO more functionability but requires fix to login system
-def deleteUser():
-    pass
+#Delete user functionability (Only for Admin)
+def deleteUser(username):
+    user_list = readFromFile()
+    #remove user from user_list
+    for i in range(len(user_list)):
+        userdata = user_list[i].split(":")
+        if username == userdata[0]:
+            user_list.pop(i)
+            break
+    #overwrite users.txt with updated user_list
+    a_file = open("users.txt", "w")
+    for i in range(len(user_list)):
+        if i < len(user_list) - 1:
+            a_file.write(user_list[i] + "\n")    #Adds new row to users.txt file 
+        else:
+            a_file.write(user_list[i])          #No new row added to users.txt file
+    a_file.close()
 
 #add new user and password to database
 def writeToFile(username,password):
     a_file = open("users.txt", "a")
     a_file.write(f"\n{username}:{password}")
     a_file.close()
+
+#Login with excisting username and password
+def oldUser():
+    print("Login with excisting username and password:")
+    username = input("Username: ")
+    password = input("Password: ")
+    if checkUser(username,password):
+        loggedInScreen(username)
+    else:
+        print("Username and password did not excist or match")
 
 #check username and password from database
 def checkUser(username,password):
@@ -61,11 +84,30 @@ def checkUser(username,password):
     for item in user_list:
         userdata = item.split(":")
         if username == userdata[0] and password == userdata[1]: #Case sensitive
-            accessData()
             isMatch = True
+    return isMatch
 
-    if isMatch == False:
-        print("Username and password not found or did not match")
+def loggedInScreen(user):
+    while True:
+        #ADMIN ACCESS ONLY -> delete user possibility
+        if user == "Admin":
+            command = input("Read file (read), delete user(del), exit (exit): ")
+            #command action for del
+            if command == "del":
+                del_user = input("Give username: ")
+                deleteUser(del_user)
+
+        #User access command      
+        else:
+            command = input("Read file (read), exit (exit): ")
+
+        #command actions
+        if command == "read":
+            accessData()
+            continue
+        elif command == "exit":
+            break
+
 
 #Read information from file. Creates a list of users and passwords (NOT SO SAFE!)
 def readFromFile():
@@ -88,7 +130,7 @@ def accessData():
 def main():
     while True:
         print("***Welcome to Jefishub login system***")
-        login()
+        loginScreen()
         new_game = input("Do you want to play again? (y/n)")
         if new_game == "y":
             continue
