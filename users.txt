@@ -1,0 +1,3 @@
+Usernames and passwords:
+Jere:password1
+Jorma:Jormakka2

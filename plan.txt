@@ -1,0 +1,14 @@
+Simple login system.
+- login
+- create new user
+- write to a file
+- read from a file
+- user interface
+- access to a file
+
+Unittest
+- create file with user information
+- create test cases
+    -known users
+    -fixed input
+    -random input
