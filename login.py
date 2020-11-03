@@ -51,7 +51,7 @@ def deleteUser():
 #add new user and password to database
 def writeToFile(username,password):
     a_file = open("users.txt", "a")
-    a_file.write(f"{username}:{password}")
+    a_file.write(f"\n{username}:{password}")
     a_file.close()
 
 #check username and password from database
