@@ -57,6 +57,7 @@ def validPassword(password):
 #Delete user functionability (Only for Admin)
 def deleteUser(username):
     """Function that removes a user from database (users.txt file)
+       This function only works when logged in as Admin
 
     Args:
         username (String): The username to be deleted
@@ -110,8 +111,14 @@ def checkUser(username,password):
     return isMatch
 
 
-
+#Logged in screen gives ability to give commands when username and password matched
 def loggedInScreen(user):
+    """loggedInScreen gives the user command options. When logged as user only commands are 'read' and 'exit'.
+       When logged in as Admin, adds 'delete' command for use
+
+    Args:
+        user (string): The name of the currently logged in user
+    """
     while True:
         #ADMIN ACCESS ONLY -> delete user possibility
         if user == "Admin":
