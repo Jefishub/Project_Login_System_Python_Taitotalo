@@ -12,8 +12,13 @@ def loginScreen():
             print("Invalid command")
             continue
 
+
+
 #Make new user and password
 def newUser():
+    """ Function for creating new user. Asks for a new username and password. 
+        Checks if inputs are valid and if yes, then writes them to users.txt file via writeToFile function
+    """
     print("***Create new user***")
     while True:
         username = input("Please give a username: ")
@@ -29,12 +34,16 @@ def newUser():
         writeToFile(username,password)        
         break
 
+
+
 #for now, only letters allowed (case sensitive).
 def validUsername(username):
     if username.isalpha() and len(username) > 2:
         return True
     else:
         return False
+
+
 
 #for now, only letters and numbers allowed (Case sensitive)
 def validPassword(password):
@@ -43,8 +52,15 @@ def validPassword(password):
     else:
         return False
 
+
+
 #Delete user functionability (Only for Admin)
 def deleteUser(username):
+    """Function that removes a user from database (users.txt file)
+
+    Args:
+        username (String): The username to be deleted
+    """
     user_list = readFromFile()
     #remove user from user_list
     for i in range(len(user_list)):
@@ -61,11 +77,15 @@ def deleteUser(username):
             a_file.write(user_list[i])          #No new row added to users.txt file
     a_file.close()
 
+
+
 #add new user and password to database
 def writeToFile(username,password):
     a_file = open("users.txt", "a")
     a_file.write(f"\n{username}:{password}")
     a_file.close()
+
+
 
 #Login with excisting username and password
 def oldUser():
@@ -77,6 +97,8 @@ def oldUser():
     else:
         print("Username and password did not excist or match")
 
+
+
 #check username and password from database
 def checkUser(username,password):
     user_list = readFromFile()
@@ -86,6 +108,8 @@ def checkUser(username,password):
         if username == userdata[0] and password == userdata[1]: #Case sensitive
             isMatch = True
     return isMatch
+
+
 
 def loggedInScreen(user):
     while True:
@@ -109,6 +133,8 @@ def loggedInScreen(user):
             break
 
 
+
+
 #Read information from file. Creates a list of users and passwords (NOT SO SAFE!)
 def readFromFile():
     new_list = []
@@ -119,12 +145,16 @@ def readFromFile():
     a_file.close()
     return new_list
 
+
+
 #Access secret information
 def accessData():
     a_file = open("accessFile.txt", "r")
     for line in a_file:
         print(line)
     a_file.close()
+
+
 
 
 def main():
@@ -137,6 +167,8 @@ def main():
         else:
             break
     
+
+
 
 """MAIN FUNCTION -> starts the game"""
 if __name__ == "__main__":
