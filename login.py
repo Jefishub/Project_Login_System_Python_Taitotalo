@@ -86,9 +86,15 @@ def accessData():
 
 
 def main():
-    print("***Welcome to Jefishub login system***")
-    login()
-    pass
+    while True:
+        print("***Welcome to Jefishub login system***")
+        login()
+        new_game = input("Do you want to play again? (y/n)")
+        if new_game == "y":
+            continue
+        else:
+            break
+    
 
 """MAIN FUNCTION -> starts the game"""
 if __name__ == "__main__":
