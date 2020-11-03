@@ -19,6 +19,7 @@ def newUser():
         if validPassword == False:
             print("Invalid password")
             continue
+        
         break
 
     writeToFile(username,password)
@@ -29,11 +30,17 @@ def oldUser():
     username = input("Username: ")
     password = input("Password: ")
     checkUser(username,password)
-    
+
+#for now, only letters allowed (case sensitive).
 def validUsername(username):
     pass
 
+#for now, only letters and numbers allowed (Case sensitive)
 def validPassword(password):
+    pass
+
+#TODO more functionability but requires fix to login system
+def deleteUser():
     pass
 
 #add new user and password to database
