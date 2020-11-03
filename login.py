@@ -55,14 +55,14 @@ def validPassword(password):
 
 
 #Delete user functionability (Only for Admin)
-def deleteUser(username):
+def deleteUser(username, user_file="users,txt"):
     """Function that removes a user from database (users.txt file)
        This function only works when logged in as Admin
 
     Args:
         username (String): The username to be deleted
     """
-    user_list = readFromFile()
+    user_list = readFromFile(user_file)
     #remove user from user_list
     for i in range(len(user_list)):
         userdata = user_list[i].split(":")
@@ -70,7 +70,7 @@ def deleteUser(username):
             user_list.pop(i)
             break
     #overwrite users.txt with updated user_list
-    a_file = open("users.txt", "w")
+    a_file = open(user_file, "w")
     for i in range(len(user_list)):
         if i < len(user_list) - 1:
             a_file.write(user_list[i] + "\n")    #Adds new row to users.txt file 
@@ -101,8 +101,8 @@ def oldUser():
 
 
 #check username and password from database
-def checkUser(username,password):
-    user_list = readFromFile()
+def checkUser(username,password,user_file="users.txt"):
+    user_list = readFromFile(user_file)
     isMatch = False
     for item in user_list:
         userdata = item.split(":")
@@ -134,7 +134,7 @@ def loggedInScreen(user):
 
         #command actions
         if command == "read":
-            accessData()
+            print(accessData())
             continue
         elif command == "exit":
             break
@@ -157,9 +157,11 @@ def readFromFile(user_file="users.txt"):
 #Access secret information
 def accessData(hidden_file="accessFile.txt"):
     a_file = open(hidden_file, "r")
+    text = ""
     for line in a_file:
-        print(line)
+        text += line
     a_file.close()
+    return text
 
 
 
