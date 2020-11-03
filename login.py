@@ -9,20 +9,19 @@ def login():
 #Make new user and password
 def newUser():
     print("***Create new user***")
-    while():
+    while True:
         username = input("Please give a username: ")
-        if validUsername == False:
-            print("Invalid username!")
+        if validUsername(username) == False:
+            print("Invalid username! Only letters are allowed, minimum of 3 letters long")
             continue
 
         password = input("Please give a password: ")
-        if validPassword == False:
-            print("Invalid password")
+        if validPassword(password) == False:
+            print("Invalid password. Only letters and numbers are allowed, minimum of 7 characters")
             continue
-        
-        break
 
-    writeToFile(username,password)
+        writeToFile(username,password)        
+        break
 
 #Login with excisting username and password
 def oldUser():
@@ -33,11 +32,17 @@ def oldUser():
 
 #for now, only letters allowed (case sensitive).
 def validUsername(username):
-    pass
+    if username.isalpha() and len(username) > 2:
+        return True
+    else:
+        return False
 
 #for now, only letters and numbers allowed (Case sensitive)
 def validPassword(password):
-    pass
+    if password.isalnum() and len(password) > 6:
+        return True
+    else:
+        return False
 
 #TODO more functionability but requires fix to login system
 def deleteUser():
